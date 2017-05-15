@@ -1,0 +1,50 @@
+object dmPrincipal: TdmPrincipal
+  OldCreateOrder = False
+  Height = 306
+  Width = 392
+  object dbPrincipal: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = False
+    Properties.Strings = (
+      'controls_cp=CP_UTF8')
+    HostName = 'www.bibia.com.br'
+    Port = 3306
+    Database = 'bibiacom_Sms'
+    User = 'bibiacom_Consult'
+    Password = 'cadmus182'
+    Protocol = 'mysql-5'
+    LibraryLocation = 'libmySQL.dll'
+    Left = 32
+    Top = 16
+  end
+  object qrySms: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'select Erro from Conexao'
+      ''
+      ''
+      '')
+    Params = <>
+    Left = 32
+    Top = 80
+    object qrySmsErro: TStringField
+      FieldName = 'Erro'
+      Size = 4000
+    end
+  end
+  object qryEmail: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'select Erro from Conexao'
+      ''
+      ''
+      '')
+    Params = <>
+    Left = 112
+    Top = 80
+    object StringField1: TStringField
+      FieldName = 'Erro'
+      Size = 4000
+    end
+  end
+end

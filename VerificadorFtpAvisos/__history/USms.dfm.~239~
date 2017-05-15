@@ -1,0 +1,443 @@
+object FVerificador: TFVerificador
+  Left = 402
+  Top = 265
+  Caption = 'Verificador'
+  ClientHeight = 544
+  ClientWidth = 1311
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object mmClientes: TMemo
+    Left = 1148
+    Top = 49
+    Width = 163
+    Height = 495
+    Align = alRight
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 0
+  end
+  object gbConexao: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 1311
+    Height = 49
+    Align = alTop
+    Caption = 'Conex'#227'o'
+    TabOrder = 1
+    object lbCNPJ1: TLabel
+      Left = 407
+      Top = 24
+      Width = 47
+      Height = 13
+      Caption = 'Verificado'
+    end
+    object lbContaFechamento: TLabel
+      Left = 264
+      Top = 17
+      Width = 45
+      Height = 29
+      Caption = '180'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -24
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object btAtivar: TBitBtn
+      Left = 13
+      Top = 18
+      Width = 75
+      Height = 25
+      Caption = 'Ativar'
+      TabOrder = 0
+      OnClick = btAtivarClick
+    end
+  end
+  object pnAguardandoConexao: TPanel
+    Left = 765
+    Top = 24
+    Width = 559
+    Height = 306
+    Caption = 'Sem Conex'#227'o de Internet Aguardando...'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    Visible = False
+  end
+  object DBGrid1: TDBGrid
+    Left = 17
+    Top = 86
+    Width = 454
+    Height = 217
+    DataSource = DataSource1
+    TabOrder = 3
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object Memo1: TMemo
+    Left = 17
+    Top = 309
+    Width = 437
+    Height = 196
+    TabOrder = 4
+  end
+  object mmTextoEmail: TMemo
+    Left = 477
+    Top = 107
+    Width = 282
+    Height = 196
+    TabOrder = 5
+  end
+  object IdFTP1: TIdFTP
+    OnWorkEnd = IdFTP1WorkEnd
+    AutoLogin = True
+    Passive = True
+    ProxySettings.ProxyType = fpcmNone
+    ProxySettings.Port = 0
+    ReadTimeout = 0
+    Left = 24
+    Top = 200
+  end
+  object tAguardaConexao: TTimer
+    Enabled = False
+    OnTimer = tAguardaConexaoTimer
+    Left = 56
+    Top = 56
+  end
+  object dbPrincipal: TADOConnection
+    ConnectionString = 
+      'Provider=MSDASQL.1;Password=cadmus182;Persist Security Info=True' +
+      ';User ID=bibiacom_Simples;Data Source=Simples Sms 32;Initial Cat' +
+      'alog=bibiacom_Sms'
+    ConnectionTimeout = 0
+    LoginPrompt = False
+    Provider = 'MSDASQL.1'
+    Left = 24
+    Top = 96
+  end
+  object qrySms: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * from Enviados')
+    Left = 24
+    Top = 128
+    object qrySmsCNPJ: TStringField
+      FieldName = 'CNPJ'
+      FixedChar = True
+      Size = 40
+    end
+    object qrySmsmensagem: TStringField
+      FieldName = 'mensagem'
+      FixedChar = True
+      Size = 180
+    end
+    object qrySmsdata: TDateField
+      FieldName = 'data'
+    end
+    object qrySmshora: TTimeField
+      FieldName = 'hora'
+    end
+    object qrySmsNumeroEnvio: TStringField
+      FieldName = 'NumeroEnvio'
+      FixedChar = True
+      Size = 11
+    end
+    object qrySmsComputadorEnvio: TStringField
+      FieldName = 'ComputadorEnvio'
+      FixedChar = True
+    end
+    object qrySmsEnviado: TIntegerField
+      FieldName = 'Enviado'
+    end
+    object qrySmsid: TAutoIncField
+      FieldName = 'id'
+    end
+    object qrySmsTipo: TStringField
+      FieldName = 'Tipo'
+      Size = 1
+    end
+    object qrySmsRemetente: TStringField
+      FieldName = 'Remetente'
+      Size = 80
+    end
+    object qrySmscelular: TStringField
+      FieldName = 'celular'
+      FixedChar = True
+      Size = 50
+    end
+    object qrySmsCodigoTextoEmail: TStringField
+      FieldName = 'CodigoTextoEmail'
+      Size = 30
+    end
+  end
+  object qryClientes: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * from Clientes')
+    Left = 24
+    Top = 165
+    object qryClientesid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryClientesNome: TStringField
+      FieldName = 'Nome'
+      FixedChar = True
+      Size = 80
+    end
+    object qryClientesCnpj: TStringField
+      FieldName = 'Cnpj'
+      FixedChar = True
+    end
+  end
+  object tContaFechamento: TTimer
+    OnTimer = tContaFechamentoTimer
+    Left = 96
+    Top = 56
+  end
+  object Tverificando: TTimer
+    Interval = 2000
+    OnTimer = TverificandoTimer
+    Left = 136
+    Top = 56
+  end
+  object qryVerificaDestinatario: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'Celular'
+        DataType = ftString
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      'Select Cnpj,Mensagem  from Enviados'
+      'where Celular=:Celular'
+      'and Celular is not null'
+      'and Enviado = '#39'1'#39' '
+      'order by data,hora desc'
+      ' limit 1'
+      ''
+      '')
+    Left = 112
+    Top = 192
+    object qryVerificaDestinatarioCnpj: TStringField
+      FieldName = 'Cnpj'
+      FixedChar = True
+      Size = 40
+    end
+    object qryVerificaDestinatarioMensagem: TStringField
+      FieldName = 'Mensagem'
+      FixedChar = True
+      Size = 180
+    end
+  end
+  object qrySmsRecebido: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select Destinatario,Numero,Mensagem,Data,Hora,Id from Recebidas'
+      'where destinatario is null'
+      ''
+      ''
+      ''
+      '')
+    Left = 160
+    Top = 192
+    object qrySmsRecebidoNumero: TStringField
+      FieldName = 'Numero'
+      Size = 12
+    end
+    object qrySmsRecebidoMensagem: TStringField
+      FieldName = 'Mensagem'
+      Size = 160
+    end
+    object qrySmsRecebidoData: TStringField
+      FieldName = 'Data'
+      Size = 12
+    end
+    object qrySmsRecebidoHora: TStringField
+      FieldName = 'Hora'
+      Size = 8
+    end
+    object qrySmsRecebidoDestinatario: TStringField
+      FieldName = 'Destinatario'
+      Size = 30
+    end
+    object qrySmsRecebidoId: TAutoIncField
+      FieldName = 'Id'
+      ReadOnly = True
+    end
+  end
+  object IdFTP2: TIdFTP
+    AutoLogin = True
+    Passive = True
+    ProxySettings.ProxyType = fpcmNone
+    ProxySettings.Port = 0
+    ReadTimeout = 0
+    Left = 24
+    Top = 232
+  end
+  object qryGravaSmsRecebido: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'Select Destinatario,Numero,Mensagem,Data,Hora,Original from Rece' +
+        'bidas'
+      'where ID=:ID'
+      ''
+      ''
+      ''
+      '')
+    Left = 208
+    Top = 192
+    object qryGravaSmsRecebidoDestinatario: TStringField
+      FieldName = 'Destinatario'
+      Size = 30
+    end
+    object qryGravaSmsRecebidoNumero: TStringField
+      FieldName = 'Numero'
+      Size = 12
+    end
+    object qryGravaSmsRecebidoMensagem: TStringField
+      FieldName = 'Mensagem'
+      Size = 160
+    end
+    object qryGravaSmsRecebidoData: TStringField
+      FieldName = 'Data'
+      Size = 12
+    end
+    object qryGravaSmsRecebidoHora: TStringField
+      FieldName = 'Hora'
+      Size = 8
+    end
+    object qryGravaSmsRecebidoOriginal: TStringField
+      FieldName = 'Original'
+      Size = 180
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = qryAtualizaCliente
+    Left = 280
+    Top = 152
+  end
+  object qryTextoEmail: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * from TextoEmail')
+    Left = 248
+    Top = 192
+    object qryTextoEmailTexto: TMemoField
+      FieldName = 'Texto'
+      BlobType = ftMemo
+    end
+    object qryTextoEmailCnpj: TStringField
+      FieldName = 'Cnpj'
+      Size = 30
+    end
+    object qryTextoEmailCodigoTextoEmail: TStringField
+      FieldName = 'CodigoTextoEmail'
+      Size = 30
+    end
+  end
+  object qryAtualizaCliente: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    ParamCheck = False
+    Parameters = <>
+    Left = 72
+    Top = 192
+    object qryAtualizaClienteCelularAviso: TStringField
+      FieldName = 'CelularAviso'
+    end
+    object qryAtualizaClienteEmailAviso: TStringField
+      FieldName = 'EmailAviso'
+      Size = 120
+    end
+    object qryAtualizaClienteUltimaHoraAtivo: TTimeField
+      FieldName = 'UltimaHoraAtivo'
+    end
+    object qryAtualizaClienteUltimaDataAtivo: TDateField
+      FieldName = 'UltimaDataAtivo'
+    end
+  end
+  object qryVerificaInatividade: TADOQuery
+    Connection = dbPrincipal
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'Cnpj'
+        DataType = ftString
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      'Select * from Clientes'
+      'where Cnpj=:Cnpj'
+      'and( CelularAviso <> '#39'Sem'#39' and EmailAviso <> '#39'Sem'#39')'
+      'and ULtimaDataAtivo is not null and UltimaHoraAtivo is not null'
+      ''
+      '')
+    Left = 280
+    Top = 192
+    object qryVerificaInatividadeNome: TStringField
+      FieldName = 'Nome'
+      Size = 100
+    end
+    object qryVerificaInatividadeCNPJ: TStringField
+      FieldName = 'CNPJ'
+    end
+    object qryVerificaInatividadeid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryVerificaInatividadeSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 4
+    end
+    object qryVerificaInatividadeCelularAviso: TStringField
+      FieldName = 'CelularAviso'
+    end
+    object qryVerificaInatividadeEmailAviso: TStringField
+      FieldName = 'EmailAviso'
+      Size = 120
+    end
+    object qryVerificaInatividadeUltimaHoraAtivo: TTimeField
+      FieldName = 'UltimaHoraAtivo'
+    end
+    object qryVerificaInatividadeUltimaDataAtivo: TDateField
+      FieldName = 'UltimaDataAtivo'
+    end
+  end
+end

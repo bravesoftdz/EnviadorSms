@@ -1,0 +1,146 @@
+unit UVerificaAtividade;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, Grids, DBGrids, DB, AppEvnts,DateUtils;
+
+type
+  TFMVerificaAtividades = class(TForm)
+    TVerificaAtividade: TTimer;
+    dbgEmpresas: TDBGrid;
+    dsEmpresas: TDataSource;
+    ApplicationEvents1: TApplicationEvents;
+    procedure TVerificaAtividadeTimer(Sender: TObject);
+    procedure ApplicationEvents1ActionExecute(Action: TBasicAction;
+      var Handled: Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FMVerificaAtividades: TFMVerificaAtividades;
+
+implementation
+
+uses DmuVerificaAtividades;
+
+{$R *.dfm}
+
+function isnull(Palavra : Variant) : String ;
+begin
+  if Palavra <> null then
+    Result := Palavra
+  else
+    Result := '';
+end;
+
+Function VerificaAtividade(UltimaHora : String) : Boolean;
+var HoraAtual : String;
+Diferenca : Int64;
+begin
+  Result := True;
+  HoraAtual := FormatDateTime('hh:mm',Time);
+  Diferenca := MinutesBetween(StrToTime(UltimaHora),StrToTime(HoraAtual)) ;
+  if ((UltimaHora) <> '') and (Diferenca >= 12) and
+     (Diferenca <= 17)
+      then
+    Result := False;
+end;
+
+procedure InsereAvisoEmail(Email,Empresa,Cnpj : String);
+begin
+  if (Email <> 'Sem') or (Email <> '')  then begin
+    with dmVerificaAtividades do begin
+      qrySmsEmail.Active := False;
+      try
+        qrySmsEmail.Active := True;
+      except
+      end;
+      qrySmsEmail.Insert;
+      qrySmsEmail['CNPJ'] := Cnpj;
+      qrySmsEmail['mensagem']:= 'Aviso Automatico Simples Sms - ' + Empresa + ' a sua ferramenta parece estar com problemas' ;
+      qrySmsEmail['celular'] := Email ;
+      qrySmsEmail['Enviado'] := 0 ;
+      qrySmsEmail['Tipo']:= 'E' ;
+      qrySmsEmail['Remetente'] := 'simplessms@gmail.com' ;
+      qrySmsEmail['CodigoTextoEmail']:= 'AvisoInatividade' ;
+      qrySmsEmail.Post;
+      qryTextoEmail.Active := False;
+      try
+        qryTextoEmail.Active := True;
+      except
+      end;
+      qryTextoEmail.Insert;
+      qryTextoEmail['CodigoTextoEmail'] := 'AvisoInatividade';
+      qryTextoEmail['Cnpj'] := Cnpj;
+      qryTextoEmail['Texto'] :='Aviso Automatico Simples Sms - ' + Empresa + ' a sua ferramenta parece estar com problemas' ;
+      try
+        qryTextoEmail.Post;
+      except
+
+      end;
+    end;
+  end;
+end;
+
+procedure InsereAvisoSms(Celular,Empresa,Cnpj : String);
+begin
+  if (Celular <> 'Sem') or (Celular <> '') then begin
+    with dmVerificaAtividades do begin
+      qrySmsEmail.Active := False;
+      try
+        qrySmsEmail.Active := True;
+      except
+      end;
+      qrySmsEmail.Insert;
+      qrySmsEmail['CNPJ'] := Cnpj;
+      qrySmsEmail['mensagem']:= 'Aviso Automatico Simples Sms - ' + Empresa + ' a sua ferramenta parece estar com problemas' ;
+      qrySmsEmail['celular'] := Celular ;
+      qrySmsEmail['Enviado'] := 0 ;
+      qrySmsEmail['Tipo']:= 'S' ;
+      qrySmsEmail['CodigoTextoEmail']:= '' ;
+      try
+        qrySmsEmail.Post;
+      except
+      end;
+    end;
+  end;
+end;
+
+procedure TFMVerificaAtividades.ApplicationEvents1ActionExecute(
+  Action: TBasicAction; var Handled: Boolean);
+var a : String;
+begin
+  a := 'a';
+end;
+
+procedure TFMVerificaAtividades.TVerificaAtividadeTimer(Sender: TObject);
+begin
+  with dmVerificaAtividades do begin
+    dbPrincipal.Disconnect;
+    try
+      dbPrincipal.Connect;
+    except
+    end;
+    qryEmpresa.Active := False;
+    try
+      qryEmpresa.Active := True;
+    except
+    end;
+    while not qryEmpresa.Eof do begin
+      if dmVerificaAtividades.qryEmpresaUltimaHoraAtivo.AsString <> '' then begin
+        if VerificaAtividade(dmVerificaAtividades.qryEmpresaUltimaHoraAtivo.AsString) = False then begin
+          InsereAvisoEmail(qryEmpresaEmailAviso.AsString,qryEmpresa['Nome'],qryEmpresa['CNPJ']);
+          InsereAvisoSms(qryEmpresaCelularAviso.AsString,qryEmpresa['Nome'],qryEmpresa['CNPJ']);
+        end;
+      end;
+      qryEmpresa.Next;
+    end;
+  end;
+end;
+
+end.

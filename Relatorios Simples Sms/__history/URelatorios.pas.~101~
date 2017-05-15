@@ -1,0 +1,148 @@
+unit URelatorios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, dblookup, Mask, Buttons, ComCtrls, Grids, DBGrids, DB,
+  DBCtrls;
+
+type
+  TfmRelatorios = class(TForm)
+    gbOpcaoFiltro: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    mkDataInicial: TMaskEdit;
+    mkDataFinal: TMaskEdit;
+    btBuscar: TBitBtn;
+    btExportarPdf: TBitBtn;
+    GroupBox1: TGroupBox;
+    StatusBar1: TStatusBar;
+    gbListaEnvios: TGroupBox;
+    gbListaSms: TGroupBox;
+    gbListaEmails: TGroupBox;
+    dgLIstaSms: TDBGrid;
+    dbListaEmail: TDBGrid;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    lbValorCadaSms: TLabel;
+    lbValorTotalSms: TLabel;
+    Label13: TLabel;
+    lbValorTotalCobrado: TLabel;
+    lbEnvioEmail: TLabel;
+    lbEnvioCadaEmail: TLabel;
+    lbValorTotalEmail: TLabel;
+    lbEnviosSms: TLabel;
+    dsListaSms: TDataSource;
+    dsListaEmail: TDataSource;
+    dsRelClientes: TDataSource;
+    cbListaClientes: TDBLookupComboBox;
+    procedure btBuscarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmRelatorios: TfmRelatorios;
+
+implementation
+
+uses UdmuPrincipal;
+
+{$R *.dfm}
+
+function ContaEnviadosSms : Integer;
+var Total : Integer;
+begin
+  Total := 0 ;
+  with dmPrincipal do
+  begin
+    qrySms.First;
+    while not qrySms.Eof do
+    begin
+      Total := Total + qrySms['NumeroDia'];
+      qrySms.Next;
+    end;
+  end;
+end;
+
+function ContaEnviadosEmail : Integer;
+var Total : Integer;
+begin
+  Total := 0 ;
+  with dmPrincipal do
+  begin
+    qrySms.First;
+    while not qrySms.Eof do
+    begin
+      Total := Total + qrySms['NumeroDia'];
+      qrySms.Next;
+    end;
+  end;
+end;
+
+function dataMysql(Data : String) : String ;
+begin
+  Result :=
+  copy(Data,7,2)+'/'+
+  copy(Data,4,2)+'/'+
+  copy(Data,1,2);
+end;
+
+procedure BuscaSms(Cnpj,DataIniicil,DataFinal : String);
+begin
+  with dmPrincipal do
+  begin
+    qrySms.Active := False;
+    qrySms.Active := True;
+    qrySms.Close;
+    qrySms.ParamByName('Empresa').Value := fmRelatorios.cbListaClientes.KeyValue;
+    qrySms.ParamByName('DataInicial').Value := DataMysql(fmRelatorios.mkDataInicial.Text);
+    qrySms.ParamByName('DataFinal').Value   := DataMysql(fmRelatorios.mkDataFinal.Text);
+    qrySms.Open;
+  end;
+end;
+
+procedure BuscaEmail(Cnpj,DataIniicil,DataFinal : String);
+begin
+  with dmPrincipal do
+  begin
+    qryEmail.Active := False;
+    qryEmail.Active := True;
+    qryEmail.Close;
+    qryEmail.ParamByName('Empresa').Value := fmRelatorios.cbListaClientes.KeyValue;
+    qryEmail.ParamByName('DataInicial').Value := dataMysql(fmRelatorios.mkDataInicial.Text);
+    qryEmail.ParamByName('DataFinal').Value   := dataMysql(fmRelatorios.mkDataFinal.Text);
+    qryEmail.Open;
+  end;
+end;
+
+procedure ResetaServidor;
+begin
+  dmPrincipal.dbPrincipal.Disconnect;
+  dmPrincipal.dbPrincipal.Connect;
+end;
+
+
+procedure TfmRelatorios.btBuscarClick(Sender: TObject);
+begin
+  if cbListaClientes.KeyValue = -1 then
+    ShowMessage('Escolha um Cliente')
+  else if (mkDataInicial.Text = '') or (mkDataFinal.Text='') then
+    ShowMessage('Informe o periodo de Envio')
+  else
+  begin
+    ResetaServidor;
+    BuscaSms(cbListaClientes.KeyValue,mkDataInicial.Text,mkDataFinal.Text);
+    BuscaEmail(cbListaClientes.KeyValue,mkDataInicial.Text,mkDataFinal.Text);
+  end;
+end;
+
+end.

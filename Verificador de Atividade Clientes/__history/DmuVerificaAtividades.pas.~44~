@@ -1,0 +1,79 @@
+unit DmuVerificaAtividades;
+
+interface
+
+uses
+  SysUtils, Classes, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  ZAbstractConnection, ZConnection, ExtCtrls;
+
+type
+  TdmVerificaAtividades = class(TDataModule)
+    dbPrincipal: TZConnection;
+    qryEmpresa: TZQuery;
+    qryEmpresaNome: TStringField;
+    qryEmpresaCNPJ: TStringField;
+    qryEmpresaid: TIntegerField;
+    qryEmpresaSENHA: TStringField;
+    qryEmpresaCelularAviso: TStringField;
+    qryEmpresaEmailAviso: TStringField;
+    qryEmpresaUltimaHoraAtivo: TStringField;
+    qryEmpresaUltimaDataAtivo: TDateField;
+    qryEmpresaDiaVencimento: TIntegerField;
+    qryEmpresaPrazoPagamento: TIntegerField;
+    TVerificaAtividade: TTimer;
+    procedure TVerificaAtividadeTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmVerificaAtividades: TdmVerificaAtividades;
+
+implementation
+
+{$R *.dfm}
+
+Function VerificaAtividade(Celular,Email,UltimaHora : String) : Boolean;
+begin
+  Result := True;
+  if ((Celular <> 'Sem') or
+     (Email <> 'Sem')) and
+     (StrToTime(UltimaHora)+6 < StrToTime(FormatDateTime('hh:mm:ss',Time)))  then
+    Result := False;
+end;
+
+procedure InsereAvisoEmail(Email,Empresa : String);
+begin
+  if Email <> 'Sem' then begin
+
+  end;
+
+
+end;
+
+procedure InsereAvisoSms(Celular,Empresa : String);
+begin
+  if Celular <> 'Sem' then begin
+  
+  end;
+
+
+end;
+
+procedure TdmVerificaAtividades.TVerificaAtividadeTimer(Sender: TObject);
+begin
+  while not qryEmpresa.Eof do begin
+    if VerificaAtividade(DmVerificaAtividades.qryEmpresa['CelularAviso'],
+                         dmVerificaAtividades.qryEmpresa['EmailAviso'],
+                         dmVerificaAtividades.qryEmpresa['UltimaHoraAtivo']) then
+      with dmVerificaAtividades do begin
+        InsereAvisoEmail(qryEmpresa['EmailAviso'],qryEmpresa['Nome']);
+        InsereAvisoSms();
+      end;
+    qryEmpresa.Next;
+  end;
+end;
+
+end.

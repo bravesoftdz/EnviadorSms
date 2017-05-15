@@ -1,0 +1,14 @@
+program PVerificaAtividade;
+
+uses
+  Forms,
+  UVerificaAtividade in 'UVerificaAtividade.pas' {FMVerificaAtividadeClientes};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFMVerificaAtividadeClientes, FMVerificaAtividadeClientes);
+  Application.Run;
+end.

@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{88CF556A-80C7-4A97-8CE0-5994763F3CBA}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="C:\AcbrTrunk2\Pacotes\Delphi\ACBrTCP\ACBr_TCP.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="PEnviadorEmail.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="ACBr_TCP">
+			<MSBuild Projects="C:\AcbrTrunk2\Pacotes\Delphi\ACBrTCP\ACBr_TCP.dproj"/>
+		</Target>
+		<Target Name="ACBr_TCP:Clean">
+			<MSBuild Targets="Clean" Projects="C:\AcbrTrunk2\Pacotes\Delphi\ACBrTCP\ACBr_TCP.dproj"/>
+		</Target>
+		<Target Name="ACBr_TCP:Make">
+			<MSBuild Targets="Make" Projects="C:\AcbrTrunk2\Pacotes\Delphi\ACBrTCP\ACBr_TCP.dproj"/>
+		</Target>
+		<Target Name="PEnviadorEmail">
+			<MSBuild Projects="PEnviadorEmail.dproj"/>
+		</Target>
+		<Target Name="PEnviadorEmail:Clean">
+			<MSBuild Targets="Clean" Projects="PEnviadorEmail.dproj"/>
+		</Target>
+		<Target Name="PEnviadorEmail:Make">
+			<MSBuild Targets="Make" Projects="PEnviadorEmail.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="ACBr_TCP;PEnviadorEmail"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="ACBr_TCP:Clean;PEnviadorEmail:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="ACBr_TCP:Make;PEnviadorEmail:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

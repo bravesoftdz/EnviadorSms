@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pedidos - ABC da Construção</title>
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" id="" style="background-color:#D7D7D7; background:url(http://www.abcdaconstrucao.com.br/emkt/regua/bg_reg.gif) 0 0 repeat; text-align: center;" width="100%">
+	<tbody>
+		<tr>
+			<td align="center" valign="top">
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%; max-width:630px;">
+				<tbody>
+					<tr>
+						<td width="100%" style="width:100%; max-width:630px;">
+                        	<!--Imagem de espaço-->
+                            <table border="0" cellpadding="0" cellspacing="0" height="30" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%; width:100%; max-width:630px;" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" height="30" style="line-height: 0px; text-align: left;" valign="top"><img border="0" height="30" src="http://www.abcdaconstrucao.com.br/emkt/spacer.gif" style="display: block; border: 0px; outline: none; text-decoration: none; vertical-align: bottom; width:100%; max-width:630px;"  width="100%" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--Fim Imagem de espaço-->
+                            <!--TXT informacao-->
+                            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%; width:100%; max-width:630px;"  width="100%">
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--TXT informacao-->
+                            <!--cabeçalho-->
+                            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%; width:100%; max-width:630px;"  width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" style="line-height: 0px; text-align: center;" valign="top"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 10px; text-align:center; font-weight: normal; margin: 0px; color: #828282;"><img border="0" src="http://www.abcdaconstrucao.com.br/emkt/regua/topo_emkt_reg.jpg" style="display: block; border: 0px; outline: none; text-decoration: none; vertical-align: bottom; margin-top:10px; width:100%; max-width:630px;" width="100%" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--cabeçalho-->
+                            <!--corpo-->
+                            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%; background-color:#FFFFFF; width:100%; max-width:630px;" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" style="text-align: left; padding:40px 20px 10px 40px; width:100%; max-width:630px;" width="100%" valign="top"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 24px; text-align:center; font-weight: normal; margin: 0px; color: #3D3D3D;"><strong>Olá, estamos sentindo sua falta.</strong></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="text-align: justify; padding:10px 40px 40px 40px; width:100%; max-width:630px;" width="100%" valign="top"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; text-align:justify; font-weight: normal; margin: 0px;"><strong>Preparamos condições exclusivas.</strong> Entre em contato conosco que garantimos as melhores soluções pra você. <br /><br />
+
+										A ABC da Construção é a maior especialista em acabamentos de Minas Gerais e oferece os melhores produtos, os melhores preços e as melhores condições. Não feche sem falar conosco. Nós não perdemos negócio!<br /><br />
+
+                                        Estamos à disposição para ajudar na sua obra. Consulte condições e aproveite!<br /><br />
+
+Equipe ABC da Construção<br />
+<a href="http://www.abcdaconstrucao.com.br/?utm_source=reguaretorno30&utm_medium=e-mail&utm_campaign=reguaretorno30">www.abcdaconstrucao.com.br</a>
+
+</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="line-height: 0px; text-align: center; width:100%; max-width:630px;" width="100%" valign="top"><a href="http://www.abcdaconstrucao.com.br/atendimento.php?utm_source=reguaretorno30&utm_medium=e-mail&utm_campaign=reguaretorno30"><img border="0" src="http://www.abcdaconstrucao.com.br/emkt/regua/att_emkt_reg.gif" style="display: block; border: 0px; outline: none; text-decoration: none; vertical-align: bottom; margin-top:0; width:100%; max-width:630px;" width="100%" /></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="line-height: 0px; text-align: center; width:100%; max-width:630px;" width="100%" valign="top"><a href="http://www.abcdaconstrucao.com.br/?utm_source=reguaretorno30&utm_medium=e-mail&utm_campaign=reguaretorno30"><img border="0" src="http://www.abcdaconstrucao.com.br/emkt/regua/base_emkt_reg.gif" style="display: block; border: 0px; outline: none; text-decoration: none; vertical-align: bottom; margin-top:0; width:100%; max-width:630px;" width="100%" /></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="text-align: justify; background-color: #C3C3C3; padding:10px 20px 20px 20px; line-height:12px; width:100%; max-width:630px;" width="100%" valign="top"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 10px; text-align:justify; font-weight: normal; margin: 0px;">Esta é uma mensagem automática, por favor não responda este e-mail pois as mensagens não serão encaminhadas para a ABC da Construção. Em caso de dúvidas ou sugestões, entre em contato pelo 0800 200 0216 ou pelo site <a href="http://www.abcdaconstrucao.com.br/?utm_source=reguaretorno30&utm_medium=e-mail&utm_campaign=reguaretorno30">www.abcdaconstrucao.com.br</a></span>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <!--corpo-->
+                            <!--Imagem de espaço-->
+                            <table border="0" cellpadding="0" cellspacing="0" height="30" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%; width:100%; max-width:630px;" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" height="30" style="line-height: 0px; text-align: left; width:100%; max-width:630px;" width="100%" valign="top"><img border="0" height="30" src="http://www.abcdaconstrucao.com.br/emkt/spacer.gif" style="display: block; border: 0px; outline: none; text-decoration: none; vertical-align: bottom; width:100%; max-width:630px;" width="100%" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--Fim Imagem de espaço-->
+                        </td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

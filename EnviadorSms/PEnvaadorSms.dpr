@@ -1,0 +1,14 @@
+program PEnvaadorSms;
+
+uses
+  Forms,
+  UEnviadorSms in 'UEnviadorSms.pas' {FEnviaSms};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFEnviaSms, FEnviaSms);
+  Application.Run;
+end.

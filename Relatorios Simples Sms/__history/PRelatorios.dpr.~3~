@@ -1,0 +1,16 @@
+program PRelatorios;
+
+uses
+  Forms,
+  URelatorios in 'URelatorios.pas' {fmRelatorios},
+  UdmuPrincipal in 'UdmuPrincipal.pas' {DataModule1: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfmRelatorios, fmRelatorios);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

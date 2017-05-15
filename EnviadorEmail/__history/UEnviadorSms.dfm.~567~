@@ -1,0 +1,1012 @@
+object FEnviaEmail: TFEnviaEmail
+  Left = 0
+  Top = 0
+  Caption = 'Enviador Email'
+  ClientHeight = 414
+  ClientWidth = 891
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbVersao: TLabel
+    Left = 8
+    Top = 88
+    Width = 6
+    Height = 13
+    Caption = '6'
+  end
+  object gbConfigurar: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 891
+    Height = 149
+    Align = alTop
+    Caption = 'Configurar'
+    TabOrder = 0
+    object lbEnviados: TLabel
+      Left = 623
+      Top = 34
+      Width = 6
+      Height = 13
+      Caption = '0'
+    end
+    object lbUltimoEnvio: TLabel
+      Left = 13
+      Top = 62
+      Width = 65
+      Height = 13
+      Caption = 'Ultimo Envio :'
+    end
+    object lbDataHoraUltimoEnvio: TLabel
+      Left = 82
+      Top = 62
+      Width = 54
+      Height = 13
+      Caption = 'Sem Envios'
+    end
+    object lbUltimoResete: TLabel
+      Left = 307
+      Top = 61
+      Width = 66
+      Height = 13
+      Caption = 'Ultimo Resete'
+    end
+    object lbDataHoraUltimoResete: TLabel
+      Left = 384
+      Top = 62
+      Width = 3
+      Height = 13
+    end
+    object lbUsuarioBanco: TLabel
+      Left = 495
+      Top = 64
+      Width = 3
+      Height = 13
+    end
+    object lbTituloEnviados: TLabel
+      Left = 607
+      Top = 15
+      Width = 43
+      Height = 13
+      Caption = 'Enviados'
+    end
+    object lbTituloNEnviados: TLabel
+      Left = 596
+      Top = 59
+      Width = 65
+      Height = 13
+      Caption = 'N'#227'o Enviados'
+    end
+    object lbNEnviados: TLabel
+      Left = 621
+      Top = 78
+      Width = 6
+      Height = 13
+      Caption = '0'
+    end
+    object lbRemoto: TLabel
+      Left = 388
+      Top = 14
+      Width = 213
+      Height = 13
+      Caption = 'Desativado Pelo Remoto clique para reativar'
+      Visible = False
+      OnClick = lbRemotoClick
+    end
+    object btAtivarDesativar: TBitBtn
+      Left = 440
+      Top = 29
+      Width = 105
+      Height = 25
+      Caption = 'Ativar'
+      DoubleBuffered = True
+      ParentDoubleBuffered = False
+      TabOrder = 0
+      OnClick = btAtivarDesativarClick
+    end
+    object cbUsuario: TEdit
+      Left = 13
+      Top = 31
+      Width = 121
+      Height = 21
+      TabOrder = 1
+    end
+    object ckPrioriadade: TCheckBox
+      Left = 25
+      Top = 87
+      Width = 97
+      Height = 17
+      Caption = 'Prioridade'
+      TabOrder = 2
+      OnClick = ckPrioriadadeClick
+    end
+    object edPrioridade: TEdit
+      Left = 27
+      Top = 112
+      Width = 233
+      Height = 21
+      TabOrder = 3
+      Visible = False
+    end
+    object ckNaoEnviar: TCheckBox
+      Left = 140
+      Top = 83
+      Width = 97
+      Height = 17
+      Caption = 'N'#227'o Enviar'
+      TabOrder = 4
+      OnClick = ckNaoEnviarClick
+    end
+    object rgEnviador: TRadioGroup
+      Left = 688
+      Top = 28
+      Width = 185
+      Height = 105
+      Caption = 'Enviador'
+      ItemIndex = 0
+      Items.Strings = (
+        'Amazon'
+        'Spark')
+      TabOrder = 5
+    end
+  end
+  object mmErro: TMemo
+    Left = 0
+    Top = 152
+    Width = 891
+    Height = 89
+    TabOrder = 1
+  end
+  object TVerificaNovoRegistro: TTimer
+    Enabled = False
+    Interval = 5000
+    OnTimer = TVerificaNovoRegistroTimer
+    Left = 656
+    Top = 105
+  end
+  object ds: TDataSource
+    Left = 376
+    Top = 104
+  end
+  object dsModem: TDataSource
+    Left = 416
+    Top = 104
+  end
+  object tRemoto: TTimer
+    Interval = 90000
+    OnTimer = tRemotoTimer
+    Left = 581
+    Top = 104
+  end
+  object Email: TACBrMail
+    Host = '127.0.0.1'
+    Port = '25'
+    SetSSL = False
+    SetTLS = False
+    IsHTML = True
+    Attempts = 3
+    DefaultCharset = UTF_8
+    IDECharset = CP1252
+    Left = 416
+    Top = 256
+  end
+  object dbPrincipal: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Properties.Strings = (
+      'controls_cp=CP_UTF8')
+    Connected = True
+    HostName = 'www.bibia.com.br'
+    Port = 3306
+    Database = 'bibiacom_Sms'
+    User = 'bibiacom_Email'
+    Password = 'cadmus182'
+    Protocol = 'mysql-5'
+    LibraryLocation = 'libmySQL.dll'
+    Left = 328
+    Top = 248
+  end
+  object qryTotalEnviados: TZQuery
+    Connection = dbPrincipal
+    UpdateObject = upTotalEnviados
+    SQL.Strings = (
+      'Select * from Enviados'
+      'where data=:Data and NumeroEnvio=:Celular'
+      'and Enviado=1'
+      'and Tipo='#39'E'#39
+      '')
+    Params = <
+      item
+        DataType = ftString
+        Name = 'Data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftString
+        Name = 'Celular'
+        ParamType = ptUnknown
+      end>
+    Left = 328
+    Top = 328
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'Data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftString
+        Name = 'Celular'
+        ParamType = ptUnknown
+      end>
+    object qryTotalEnviadosid: TIntegerField
+      FieldName = 'id'
+      Required = True
+    end
+    object qryTotalEnviadosCNPJ: TWideStringField
+      FieldName = 'CNPJ'
+      Size = 40
+    end
+    object qryTotalEnviadosmensagem: TWideStringField
+      FieldName = 'mensagem'
+      Size = 180
+    end
+    object qryTotalEnviadoscelular: TWideStringField
+      FieldName = 'celular'
+      Size = 80
+    end
+    object qryTotalEnviadosdata: TDateField
+      FieldName = 'data'
+    end
+    object qryTotalEnviadoshora: TTimeField
+      FieldName = 'hora'
+    end
+    object qryTotalEnviadosNumeroEnvio: TWideStringField
+      FieldName = 'NumeroEnvio'
+      Size = 80
+    end
+    object qryTotalEnviadosComputadorEnvio: TWideStringField
+      FieldName = 'ComputadorEnvio'
+    end
+    object qryTotalEnviadosEnviado: TIntegerField
+      FieldName = 'Enviado'
+    end
+    object qryTotalEnviadosTipo: TWideStringField
+      FieldName = 'Tipo'
+      Size = 1
+    end
+    object qryTotalEnviadosRemetente: TWideStringField
+      FieldName = 'Remetente'
+      Size = 80
+    end
+    object qryTotalEnviadosCodigoTextoEmail: TWideStringField
+      FieldName = 'CodigoTextoEmail'
+      Required = True
+      Size = 30
+    end
+    object qryTotalEnviadosValidado: TWideStringField
+      FieldName = 'Validado'
+    end
+  end
+  object upTotalEnviados: TZUpdateSQL
+    DeleteSQL.Strings = (
+      'DELETE FROM Enviados'
+      'WHERE'
+      '  Enviados.id = :OLD_id')
+    InsertSQL.Strings = (
+      'INSERT INTO Enviados'
+      
+        '  (id, CNPJ, mensagem, celular, data, hora, NumeroEnvio, Computa' +
+        'dorEnvio, '
+      '   Enviado, Tipo, Remetente, CodigoTextoEmail)'
+      'VALUES'
+      
+        '  (:id, :CNPJ, :mensagem, :celular, :data, :hora, :NumeroEnvio, ' +
+        ':ComputadorEnvio, '
+      '   :Enviado, :Tipo, :Remetente, :CodigoTextoEmail)')
+    ModifySQL.Strings = (
+      'UPDATE Enviados SET'
+      '  id = :id,'
+      '  CNPJ = :CNPJ,'
+      '  mensagem = :mensagem,'
+      '  celular = :celular,'
+      '  data = :data,'
+      '  hora = :hora,'
+      '  NumeroEnvio = :NumeroEnvio,'
+      '  ComputadorEnvio = :ComputadorEnvio,'
+      '  Enviado = :Enviado,'
+      '  Tipo = :Tipo,'
+      '  Remetente = :Remetente,'
+      '  CodigoTextoEmail = :CodigoTextoEmail'
+      'WHERE'
+      '  Enviados.id = :OLD_id')
+    UseSequenceFieldForRefreshSQL = False
+    Left = 368
+    Top = 328
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'CNPJ'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'mensagem'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'celular'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'hora'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NumeroEnvio'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ComputadorEnvio'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Enviado'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Tipo'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Remetente'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'CodigoTextoEmail'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_id'
+        ParamType = ptUnknown
+      end>
+  end
+  object qryEmail: TZQuery
+    Connection = dbPrincipal
+    UpdateObject = upSms
+    SQL.Strings = (
+      'Select  '
+      '  * '
+      'from '
+      '  Enviados'
+      'where '
+      '  enviado =15 '
+      '  and Tipo='#39'E'#39
+      '  and celular is not null'
+      '  and Validado is not null'
+      '  and Validado <> '#39' '#39
+      ''
+      'Limit '
+      '  1')
+    Params = <>
+    Left = 328
+    Top = 360
+    object qryEmailid: TIntegerField
+      FieldName = 'id'
+      Required = True
+    end
+    object qryEmailCNPJ: TWideStringField
+      FieldName = 'CNPJ'
+      Size = 40
+    end
+    object qryEmailmensagem: TWideStringField
+      FieldName = 'mensagem'
+      Size = 180
+    end
+    object qryEmailcelular: TWideStringField
+      FieldName = 'celular'
+      Size = 80
+    end
+    object qryEmaildata: TDateField
+      FieldName = 'data'
+    end
+    object qryEmailhora: TTimeField
+      FieldName = 'hora'
+    end
+    object qryEmailNumeroEnvio: TWideStringField
+      FieldName = 'NumeroEnvio'
+      Size = 80
+    end
+    object qryEmailComputadorEnvio: TWideStringField
+      FieldName = 'ComputadorEnvio'
+    end
+    object qryEmailEnviado: TIntegerField
+      FieldName = 'Enviado'
+    end
+    object qryEmailTipo: TWideStringField
+      FieldName = 'Tipo'
+      Size = 1
+    end
+    object qryEmailRemetente: TWideStringField
+      FieldName = 'Remetente'
+      Size = 80
+    end
+    object qryEmailCodigoTextoEmail: TWideStringField
+      FieldName = 'CodigoTextoEmail'
+      Required = True
+      Size = 30
+    end
+    object qryEmailValidado: TWideStringField
+      FieldName = 'Validado'
+    end
+  end
+  object upSms: TZUpdateSQL
+    DeleteSQL.Strings = (
+      'DELETE FROM Enviados'
+      'WHERE'
+      '  Enviados.id = :OLD_id')
+    InsertSQL.Strings = (
+      'INSERT INTO Enviados'
+      
+        '  (id, CNPJ, mensagem, celular, data, hora, NumeroEnvio, Computa' +
+        'dorEnvio, '
+      '   Enviado, Tipo, Remetente, CodigoTextoEmail)'
+      'VALUES'
+      
+        '  (:id, :CNPJ, :mensagem, :celular, :data, :hora, :NumeroEnvio, ' +
+        ':ComputadorEnvio, '
+      '   :Enviado, :Tipo, :Remetente, :CodigoTextoEmail)')
+    ModifySQL.Strings = (
+      'UPDATE Enviados SET'
+      '  id = :id,'
+      '  CNPJ = :CNPJ,'
+      '  mensagem = :mensagem,'
+      '  celular = :celular,'
+      '  data = :data,'
+      '  hora = :hora,'
+      '  NumeroEnvio = :NumeroEnvio,'
+      '  ComputadorEnvio = :ComputadorEnvio,'
+      '  Enviado = :Enviado,'
+      '  Tipo = :Tipo,'
+      '  Remetente = :Remetente,'
+      '  CodigoTextoEmail = :CodigoTextoEmail'
+      'WHERE'
+      '  Enviados.id = :OLD_id')
+    UseSequenceFieldForRefreshSQL = False
+    Left = 368
+    Top = 360
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'CNPJ'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'mensagem'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'celular'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'hora'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NumeroEnvio'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ComputadorEnvio'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Enviado'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Tipo'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Remetente'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'CodigoTextoEmail'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_id'
+        ParamType = ptUnknown
+      end>
+  end
+  object upSmsRecebidos: TZUpdateSQL
+    DeleteSQL.Strings = (
+      'DELETE FROM Recebidas'
+      'WHERE'
+      '  Recebidas.id = :OLD_id')
+    InsertSQL.Strings = (
+      'INSERT INTO Recebidas'
+      '  (Numero, Mensagem, Data, id, HORA, Destinatario, Original)'
+      'VALUES'
+      
+        '  (:Numero, :Mensagem, :Data, :id, :HORA, :Destinatario, :Origin' +
+        'al)')
+    ModifySQL.Strings = (
+      'UPDATE Recebidas SET'
+      '  Numero = :Numero,'
+      '  Mensagem = :Mensagem,'
+      '  Data = :Data,'
+      '  id = :id,'
+      '  HORA = :HORA,'
+      '  Destinatario = :Destinatario,'
+      '  Original = :Original'
+      'WHERE'
+      '  Recebidas.id = :OLD_id')
+    UseSequenceFieldForRefreshSQL = False
+    Left = 368
+    Top = 392
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Numero'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Mensagem'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'HORA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Destinatario'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Original'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_id'
+        ParamType = ptUnknown
+      end>
+  end
+  object qryUpdate: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'update Conexao'
+      'set Envios=NumeroEnvios'
+      'where Numero=Celular')
+    Params = <>
+    Left = 328
+    Top = 424
+  end
+  object qryRemoto: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'Select  Status,Prioridade from  Conexao'
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      '')
+    Params = <>
+    Left = 328
+    Top = 456
+    object qryRemotoStatus: TWideStringField
+      FieldName = 'Status'
+      Size = 10
+    end
+    object qryRemotoPrioridade: TWideStringField
+      FieldName = 'Prioridade'
+      Size = 255
+    end
+  end
+  object qryReenvia: TZQuery
+    Connection = dbPrincipal
+    CachedUpdates = True
+    SQL.Strings = (
+      
+        'update  `Enviados` set Enviado=0 WHERE data = current_date and E' +
+        'nviado = 3 and Tipo='#39'E'#39'  order by celular,rand()')
+    Params = <>
+    Left = 328
+    Top = 488
+  end
+  object qryModem: TZQuery
+    Connection = dbPrincipal
+    UpdateObject = upModem
+    SQL.Strings = (
+      'select * from Conexao'
+      ''
+      ''
+      '')
+    Params = <>
+    Left = 336
+    Top = 288
+    object qryModemNumero: TWideStringField
+      FieldName = 'Numero'
+      Size = 50
+    end
+    object qryModemData: TDateField
+      FieldName = 'Data'
+    end
+    object qryModemHora: TTimeField
+      FieldName = 'Hora'
+    end
+    object qryModemEnvios: TIntegerField
+      FieldName = 'Envios'
+    end
+    object qryModemLimite: TIntegerField
+      FieldName = 'Limite'
+    end
+    object qryModemUltima: TTimeField
+      FieldName = 'Ultima'
+    end
+    object qryModemUltimoEnvio: TWideStringField
+      FieldName = 'UltimoEnvio'
+      Size = 18
+    end
+    object qryModemIntervalo: TIntegerField
+      FieldName = 'Intervalo'
+    end
+    object qryModemStatus: TWideStringField
+      FieldName = 'Status'
+      Size = 10
+    end
+    object qryModemErro: TWideStringField
+      FieldName = 'Erro'
+      Size = 1000
+    end
+    object qryModemPrioridade: TWideStringField
+      FieldName = 'Prioridade'
+      Size = 255
+    end
+  end
+  object upModem: TZUpdateSQL
+    DeleteSQL.Strings = (
+      'DELETE FROM Conexao'
+      'WHERE'
+      
+        '  ((Conexao.Numero IS NULL AND :OLD_Numero IS NULL) OR (Conexao.' +
+        'Numero = :OLD_Numero)) AND'
+      
+        '  ((Conexao.Data IS NULL AND :OLD_Data IS NULL) OR (Conexao.Data' +
+        ' = :OLD_Data)) AND'
+      
+        '  ((Conexao.Hora IS NULL AND :OLD_Hora IS NULL) OR (Conexao.Hora' +
+        ' = :OLD_Hora))')
+    InsertSQL.Strings = (
+      'INSERT INTO Conexao'
+      
+        '  (Numero, Data, Hora, Envios, Limite, Ultima, UltimoEnvio, Inte' +
+        'rvalo, '
+      '   Status)'
+      'VALUES'
+      
+        '  (:Numero, :Data, :Hora, :Envios, :Limite, :Ultima, :UltimoEnvi' +
+        'o, :Intervalo, '
+      '   :Status)')
+    ModifySQL.Strings = (
+      'UPDATE Conexao SET'
+      '  Numero = :Numero,'
+      '  Data = :Data,'
+      '  Hora = :Hora,'
+      '  Envios = :Envios,'
+      '  Limite = :Limite,'
+      '  Ultima = :Ultima,'
+      '  UltimoEnvio = :UltimoEnvio,'
+      '  Intervalo = :Intervalo,'
+      '  Status = :Status'
+      'WHERE'
+      
+        '  ((Conexao.Numero IS NULL AND :OLD_Numero IS NULL) OR (Conexao.' +
+        'Numero = :OLD_Numero)) AND'
+      
+        '  ((Conexao.Data IS NULL AND :OLD_Data IS NULL) OR (Conexao.Data' +
+        ' = :OLD_Data)) AND'
+      
+        '  ((Conexao.Hora IS NULL AND :OLD_Hora IS NULL) OR (Conexao.Hora' +
+        ' = :OLD_Hora))')
+    UseSequenceFieldForRefreshSQL = False
+    Left = 368
+    Top = 296
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Numero'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Hora'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Envios'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Limite'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Ultima'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'UltimoEnvio'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Intervalo'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'Status'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_Numero'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_Data'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_Hora'
+        ParamType = ptUnknown
+      end>
+  end
+  object qryEmpresa: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'Select Nome from Clientes'
+      'where CNPJ =:Cnpj')
+    Params = <
+      item
+        DataType = ftString
+        Name = 'Cnpj'
+        ParamType = ptUnknown
+      end>
+    Left = 264
+    Top = 280
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'Cnpj'
+        ParamType = ptUnknown
+      end>
+    object qryEmpresaNome: TWideStringField
+      FieldName = 'Nome'
+      Required = True
+      Size = 100
+    end
+  end
+  object qryTextoEmail: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'Select Texto from TextoEmail'
+      'where Cnpj=:Cnpj and CodigoTextoEmail=:Codigo'
+      '')
+    Params = <
+      item
+        DataType = ftString
+        Name = 'Cnpj'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftString
+        Name = 'Codigo'
+        ParamType = ptUnknown
+      end>
+    Left = 240
+    Top = 344
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'Cnpj'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftString
+        Name = 'Codigo'
+        ParamType = ptUnknown
+      end>
+    object qryTextoEmailTexto: TWideMemoField
+      FieldName = 'Texto'
+      Required = True
+      BlobType = ftWideMemo
+    end
+  end
+  object TPingServer: TTimer
+    Interval = 90000
+    OnTimer = TPingServerTimer
+    Left = 608
+    Top = 288
+  end
+  object dbErro: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Properties.Strings = (
+      'controls_cp=CP_UTF8')
+    Connected = True
+    HostName = 'www.bibia.com.br'
+    Port = 3306
+    Database = 'bibiacom_Sms'
+    User = 'bibiacom_Envia'
+    Password = 'cadmus182'
+    Protocol = 'mysql-5'
+    LibraryLocation = 'libmySQL.dll'
+    Left = 72
+    Top = 240
+  end
+  object qryErro: TZQuery
+    Connection = dbErro
+    UpdateObject = upErro
+    SQL.Strings = (
+      'select Erro from Conexao'
+      ''
+      ''
+      '')
+    Params = <>
+    Left = 72
+    Top = 296
+    object qryErroErro: TWideStringField
+      FieldName = 'Erro'
+      Size = 1000
+    end
+  end
+  object upErro: TZUpdateSQL
+    DeleteSQL.Strings = (
+      'DELETE FROM Conexao'
+      'WHERE'
+      
+        '  ((Conexao.Erro IS NULL AND :OLD_Erro IS NULL) OR (Conexao.Erro' +
+        ' = :OLD_Erro))')
+    InsertSQL.Strings = (
+      'INSERT INTO Conexao'
+      '  (Erro)'
+      'VALUES'
+      '  (:Erro)')
+    ModifySQL.Strings = (
+      'UPDATE Conexao SET'
+      '  Erro = :Erro'
+      'WHERE'
+      
+        '  ((Conexao.Erro IS NULL AND :OLD_Erro IS NULL) OR (Conexao.Erro' +
+        ' = :OLD_Erro))')
+    UseSequenceFieldForRefreshSQL = False
+    Left = 112
+    Top = 296
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Erro'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_Erro'
+        ParamType = ptUnknown
+      end>
+  end
+  object ApplicationEvents1: TApplicationEvents
+    OnException = ApplicationEvents1Exception
+    Left = 504
+    Top = 328
+  end
+  object qryListaNegra: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'select Descricao from ListaNegra'
+      'where Lower(Descricao)=:Descricao'
+      ''
+      ''
+      '')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'Descricao'
+        ParamType = ptUnknown
+      end>
+    Left = 424
+    Top = 296
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Descricao'
+        ParamType = ptUnknown
+      end>
+    object qryListaNegraDescricao: TWideStringField
+      FieldName = 'Descricao'
+      Size = 100
+    end
+  end
+end

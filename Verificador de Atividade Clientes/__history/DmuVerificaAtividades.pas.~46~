@@ -1,0 +1,37 @@
+unit DmuVerificaAtividades;
+
+interface
+
+uses
+  SysUtils, Classes, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  ZAbstractConnection, ZConnection, ExtCtrls;
+
+type
+  TdmVerificaAtividades = class(TDataModule)
+    dbPrincipal: TZConnection;
+    qryEmpresa: TZQuery;
+    qryEmpresaNome: TStringField;
+    qryEmpresaCNPJ: TStringField;
+    qryEmpresaid: TIntegerField;
+    qryEmpresaSENHA: TStringField;
+    qryEmpresaCelularAviso: TStringField;
+    qryEmpresaEmailAviso: TStringField;
+    qryEmpresaUltimaHoraAtivo: TStringField;
+    qryEmpresaUltimaDataAtivo: TDateField;
+    qryEmpresaDiaVencimento: TIntegerField;
+    qryEmpresaPrazoPagamento: TIntegerField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmVerificaAtividades: TdmVerificaAtividades;
+
+implementation
+
+{$R *.dfm}
+
+
+end.

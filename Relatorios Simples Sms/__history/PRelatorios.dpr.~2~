@@ -1,0 +1,14 @@
+program PRelatorios;
+
+uses
+  Forms,
+  URelatorios in 'URelatorios.pas' {fmRelatorios};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfmRelatorios, fmRelatorios);
+  Application.Run;
+end.

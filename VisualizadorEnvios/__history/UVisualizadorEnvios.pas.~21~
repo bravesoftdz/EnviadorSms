@@ -1,0 +1,84 @@
+unit UVisualizadorEnvios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, DB, ADODB, StdCtrls;
+
+type
+  TfVerificadator = class(TForm)
+    qryModem: TADOQuery;
+    qryModemNumero: TStringField;
+    qryModemdata: TDateField;
+    qryModemhora: TTimeField;
+    qryModemenvios: TIntegerField;
+    qryModemLimite: TIntegerField;
+    qrySmsEsperando: TADOQuery;
+    qrySmsEsperandoid: TIntegerField;
+    qrySmsEsperandoCNPJ: TStringField;
+    qrySmsEsperandomensagem: TStringField;
+    qrySmsEsperandocelular: TStringField;
+    qrySmsEsperandodata: TDateField;
+    qrySmsEsperandohora: TTimeField;
+    qrySmsEsperandoNumeroEnvio: TStringField;
+    qrySmsEsperandoComputadorEnvio: TStringField;
+    qrySmsEsperandoEnviado: TIntegerField;
+    dbPrincipal: TADOConnection;
+    Tverifica: TTimer;
+    qrySmsEnviados: TADOQuery;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    DateField1: TDateField;
+    TimeField1: TTimeField;
+    StringField4: TStringField;
+    StringField5: TStringField;
+    IntegerField2: TIntegerField;
+    qrySmsNEnviados: TADOQuery;
+    qrySmsNEnviadosid: TIntegerField;
+    qrySmsNEnviadosCNPJ: TStringField;
+    qrySmsNEnviadosmensagem: TStringField;
+    qrySmsNEnviadoscelular: TStringField;
+    qrySmsNEnviadosdata: TDateField;
+    qrySmsNEnviadoshora: TTimeField;
+    qrySmsNEnviadosNumeroEnvio: TStringField;
+    qrySmsNEnviadosComputadorEnvio: TStringField;
+    qrySmsNEnviadosEnviado: TIntegerField;
+    gbEsperandoEnvios: TGroupBox;
+    gbEnviados: TGroupBox;
+    GroupBox1: TGroupBox;
+    dsEsperando: TDataSource;
+    dsEnviados: TDataSource;
+    dsNenviados: TDataSource;
+    dsModem: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fVerificadator: TfVerificadator;
+
+implementation
+
+{$R *.dfm}
+
+procedure Verifica;
+begin
+  fVerificadator.dbPrincipal.Connected := False;
+  fVerificadator.dbPrincipal.Connected := True;
+  fVerificadator.qryModem.Active := False;
+  fVerificadator.qryModem.Active := True;
+  fVerificadator.qrySmsEsperando.Active:= False;
+  fVerificadator.qrySmsEsperando.Active := True;
+  fVerificadator.qrySmsEnviados.Active:= False;
+  fVerificadator.qrySmsEnviados.Active := True;
+  fVerificadator.qrySmsNEnviados.Active:= False;
+  fVerificadator.qrySmsNEnviados.Active := True;
+
+end;
+
+end.

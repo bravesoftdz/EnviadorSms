@@ -1,0 +1,128 @@
+object dmPrincipal: TdmPrincipal
+  OldCreateOrder = False
+  Height = 306
+  Width = 392
+  object dbPrincipal: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = False
+    Properties.Strings = (
+      'controls_cp=CP_UTF8')
+    Connected = True
+    HostName = 'www.bibia.com.br'
+    Port = 3306
+    Database = 'bibiacom_Sms'
+    User = 'bibiacom_Consult'
+    Password = 'cadmus182'
+    Protocol = 'mysql-5'
+    LibraryLocation = 'libmySQL.dll'
+    Left = 32
+    Top = 16
+  end
+  object qrySms: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'SELECT '
+      '  Data,Count(*) as NumeroDia '
+      'FROM '
+      '  Enviados'
+      'where '
+      '  Tipo='#39'S'#39' and'
+      '  CNPJ=:Empresa and'
+      '  data between :DataInicial and :DataFinal'
+      '')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'Empresa'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataInicial'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataFinal'
+        ParamType = ptUnknown
+      end>
+    Left = 32
+    Top = 80
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Empresa'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataInicial'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataFinal'
+        ParamType = ptUnknown
+      end>
+    object qrySmsData: TDateField
+      FieldName = 'Data'
+    end
+    object qrySmsNumeroDia: TLargeintField
+      FieldName = 'NumeroDia'
+      ReadOnly = True
+    end
+  end
+  object qryEmail: TZQuery
+    Connection = dbPrincipal
+    SQL.Strings = (
+      'SELECT '
+      '  Data,Count(*) as NumeroDia '
+      'FROM '
+      '  Enviados'
+      'where '
+      '  Tipo='#39'E'#39' and'
+      '  CNPJ=:Empresa and'
+      '  data between :DataInicial and :DataFinal')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'Empresa'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataInicial'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataFinal'
+        ParamType = ptUnknown
+      end>
+    Left = 112
+    Top = 80
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Empresa'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataInicial'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DataFinal'
+        ParamType = ptUnknown
+      end>
+    object qryEmailData: TDateField
+      FieldName = 'Data'
+    end
+    object qryEmailNumeroDia: TLargeintField
+      FieldName = 'NumeroDia'
+      ReadOnly = True
+    end
+  end
+end

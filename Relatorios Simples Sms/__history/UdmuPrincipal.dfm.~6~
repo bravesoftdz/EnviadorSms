@@ -1,0 +1,69 @@
+object dmPrincipal: TdmPrincipal
+  OldCreateOrder = False
+  Height = 306
+  Width = 392
+  object dbErro: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = False
+    Properties.Strings = (
+      'controls_cp=CP_UTF8')
+    HostName = 'www.bibia.com.br'
+    Port = 3306
+    Database = 'bibiacom_Sms'
+    User = 'bibiacom_Envia'
+    Password = 'cadmus182'
+    Protocol = 'mysql-5'
+    LibraryLocation = 'libmySQL.dll'
+    Left = 32
+    Top = 16
+  end
+  object qryErro: TZQuery
+    Connection = dbErro
+    SQL.Strings = (
+      'select Erro from Conexao'
+      ''
+      ''
+      '')
+    Params = <>
+    Left = 32
+    Top = 48
+    object qryErroErro: TStringField
+      FieldName = 'Erro'
+      Size = 4000
+    end
+  end
+  object upErro: TZUpdateSQL
+    DeleteSQL.Strings = (
+      'DELETE FROM Conexao'
+      'WHERE'
+      
+        '  ((Conexao.Erro IS NULL AND :OLD_Erro IS NULL) OR (Conexao.Erro' +
+        ' = :OLD_Erro))')
+    InsertSQL.Strings = (
+      'INSERT INTO Conexao'
+      '  (Erro)'
+      'VALUES'
+      '  (:Erro)')
+    ModifySQL.Strings = (
+      'UPDATE Conexao SET'
+      '  Erro = :Erro'
+      'WHERE'
+      
+        '  ((Conexao.Erro IS NULL AND :OLD_Erro IS NULL) OR (Conexao.Erro' +
+        ' = :OLD_Erro))')
+    UseSequenceFieldForRefreshSQL = False
+    Left = 72
+    Top = 48
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'Erro'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_Erro'
+        ParamType = ptUnknown
+      end>
+  end
+end

@@ -1,0 +1,16 @@
+program PVerificaAtividade;
+
+uses
+  Forms,
+  UVerificaAtividade in 'UVerificaAtividade.pas' {FMVerificaAtividades},
+  DmuVerificaAtividades in 'DmuVerificaAtividades.pas' {DataModule1: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFMVerificaAtividades, FMVerificaAtividades);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

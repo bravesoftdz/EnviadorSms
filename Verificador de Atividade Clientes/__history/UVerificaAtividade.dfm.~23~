@@ -1,0 +1,77 @@
+object FMVerificaAtividades: TFMVerificaAtividades
+  Left = 0
+  Top = 0
+  Caption = 'Verifica Atividades'
+  ClientHeight = 263
+  ClientWidth = 600
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object dbgEmpresas: TDBGrid
+    Left = 0
+    Top = 0
+    Width = 600
+    Height = 263
+    Align = alClient
+    DataSource = dsEmpresas
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Nome'
+        Width = 200
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CelularAviso'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'EmailAviso'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'UltimaHoraAtivo'
+        Width = 80
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'UltimaDataAtivo'
+        Width = 80
+        Visible = True
+      end>
+  end
+  object TVerificaAtividade: TTimer
+    Interval = 30000
+    OnTimer = TVerificaAtividadeTimer
+    Left = 232
+    Top = 56
+  end
+  object dsEmpresas: TDataSource
+    DataSet = dmVerificaAtividades.qryEmpresa
+    Left = 232
+    Top = 96
+  end
+  object PEventos: TApplicationEvents
+    OnActionExecute = PEventosActionExecute
+    Left = 232
+    Top = 136
+  end
+end
